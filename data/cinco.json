@@ -1,0 +1,257 @@
+  {
+    "gig": [
+      {
+        "_id": "s101",
+        "seller": {
+          "_id": "234567890",
+          "fullname": "reduan_4u",
+          "imgUrl": "https://fiverr-res.cloudinary.com/t_profile_thumb,q_auto,f_auto/attachments/profile/photo/5f69019e7789bed723c4edc6e4159a09-1612158388846/bd53169a-c9e1-427c-9713-55772d3eca68.jpg"
+        },
+        "title": "Logo Design",
+        "moto":"Let me illuminate your ideas through creations",
+        "description": "This Gig assures you for the logo designs with minimalism and smoothness This Gig is of one of many design kinds we offer. Flat design concepts are one of our fortes. For the logo to be timeless it doesn’t need to be with complex structures or patterns. It just needs to be simple, memorable and which gives a distinctive essence to your business A flat design is the one which defines your identity or your business but doesn’t get in way of your destination for your target audienceOur minimalistic logo designs will help in representing your company in a unique way. We believe that minimalism is not simple but has unlimited boundaries of its own",
+        "price": 120,
+        "currncyCode": "$",
+        "tags": [
+          "logo",
+          "design",
+          "web"
+        ],
+        "imgUrls": [
+          "shop.jpg",
+          "more1.jpg",
+          "more2.jpg"
+        ],
+        "reviews": [
+          {
+            "id": "001",
+            "txt": "a great place to dine..",
+            "rate": 4,
+            "by": {
+              "_id": "u102",
+              "fullname": "user2",
+              "imgUrl": "/img/img2.jpg"
+            }
+          },
+          {
+            "id": "002",
+            "txt": "a great place to dine..",
+            "rate": 3,
+            "by": {
+              "_id": "u102",
+              "fullname": "user2",
+              "imgUrl": "/img/img2.jpg"
+            }
+          },
+          {
+            "id": "003",
+            "txt": "He made me a nice logo, but was late for delivery",
+            "rate": 2,
+            "by": {
+              "_id": "u102",
+              "fullname": "user2",
+              "imgUrl": "/img/img2.jpg"
+            }
+          },
+          {
+            "id": "004",
+            "txt": "He made me a fantastic logo",
+            "rate": 5,
+            "by": {
+              "_id": "u102",
+              "fullname": "user2",
+              "imgUrl": "/img/img2.jpg"
+            }
+          }
+        ]
+      },
+      {
+        "_id": "s102",
+        "seller": {
+          "_id": "987654321",
+          "fullname": "josenroy",
+          "imgUrl": "https://fiverr-res.cloudinary.com/t_profile_thumb,q_auto,f_auto/attachments/profile/photo/b588e4912b79a61d8986ab3bd5295ed9-1589089974499/6fb69579-17fe-4de6-b70a-55ccd32c0add.jpg"
+        },
+        "moto":"Working with you for your success",
+        "title": "Proofreading & Editing",
+        "description": "Would you mind making sure to contact me before ordering to negotiate and come up with a deal that satisfies all?If you need to rewrite your book, ebook, kindle, Content, blog, email, statement, legal script, etc... you are in the right place; I will make sure to deliver high-quality work that will leave you impressed and satisfied.  My service includes: Rewriting contentHave new Plagiarism Free Content Restructuring sentences and paragraphs Keep the meaning Providing plagiarism report (before and after rewriting)",
+
+        "price": 70,
+        "currncyCode": "$",
+        "tags": [
+          "translition",
+          "write",
+          "edit"
+        ],
+        "imgUrls": [
+          "shop.jpg",
+          "more1.jpg",
+          "more2.jpg"
+        ],
+        "reviews": [
+          {
+            "id": "madeId",
+            "txt": "a great place to dine..",
+            "rate": 4,
+            "by": {
+              "_id": "u102",
+              "fullname": "user2",
+              "imgUrl": "/img/img2.jpg"
+            }
+          }
+        ]
+      },
+      {
+        "_id": "s103",
+        "seller": {
+          "_id": "u103",
+          "fullname": "user1",
+          "imgUrl": "/img/img1.jpg"
+        },
+        "title": "Design Logo",
+        "description": "Web Designer, Logo Designer",
+        "price": 120,
+        "currncyCode": "$",
+        "tags": [
+          "logo",
+          "design",
+          "web"
+        ],
+        "imgUrls": [
+          "shop.jpg",
+          "more1.jpg",
+          "more2.jpg"
+        ],
+        "reviews": [
+          {
+            "id": "madeId",
+            "txt": "a great place to dine..",
+            "rate": 4,
+            "by": {
+              "_id": "u104",
+              "fullname": "user3",
+              "imgUrl": "/img/img3.jpg"
+            }
+          }
+        ]
+      },
+      {
+        "_id": "s102",
+        "seller": {
+          "_id": "u102",
+          "fullname": "user2",
+          "imgUrl": "/img/img1.jpg"
+        },
+        "title": "Design Logo",
+        "description": "Web Designer, Logo Designer",
+        "price": 20,
+        "currncyCode": "$",
+        "tags": [
+          "logo"
+        ],
+        "imgUrls": [
+          "shop.jpg",
+          "more1.jpg",
+          "more2.jpg"
+        ],
+        "reviews": [
+          {
+            "id": "madeId",
+            "txt": "a great place to dine..",
+            "rate": 4,
+            "by": {
+              "_id": "u102",
+              "fullname": "user2",
+              "imgUrl": "/img/img2.jpg"
+            }
+          }
+        ]
+      }
+    ],
+    "user": [
+      {
+        "_id": "u101",
+        "fullname": "User 1",
+        "imgUrl": "/img/img1.jpg",
+        "isSeller": true,
+        "username": "user1",
+        "password": "secret",
+        "messages": [
+          {
+            "withUser": "u102",
+            "chat": [
+              {
+                "isSent": true,
+                "msg": "HelloShaul",
+                "sentAt": 123123
+              },
+              {
+                "isSent": false,
+                "msg": "HelloOren",
+                "sentAt": 123133
+              },
+              {
+                "isSent": true,
+                "msg": "AtaBaBeshabat?",
+                "sentAt": 123163
+              },
+              {
+                "isSent": false,
+                "msg": "Lo:(",
+                "sentAt": 123163
+              }
+            ]
+          }
+        ],
+        "wishList": [
+          "gigId1",
+          "gigId2",
+          "gigId3"
+        ]
+      },
+      {
+        "_id": "u102",
+        "fullname": "User 2",
+        "imgUrl": "/img/img2.jpg",
+        "isSeller": false,
+        "username": "user2",
+        "password": "secret",
+        "wishList": [
+          "gigId1",
+          "gigId2",
+          "gigId3"
+        ]
+      },
+      {
+        "_id": "u103",
+        "fullname": "User 3",
+        "imgUrl": "/img/img3.jpg",
+        "isSeller": false,
+        "username": "user3",
+        "password": "secret",
+        "messages": null,
+        "wishList": []
+      }
+    ],
+    "order": [
+      {
+        "_id": "o1225",
+        "createdAt": 9898989,
+        "buyer": {
+          "_id": "v102",
+          "name": "Hapirat Hadebil"
+        },
+        "seller": {
+          "_id": "v102",
+          "name": "Hapirat Hadebil"
+        },
+        "item": {
+          "_id": "v140",
+          "name": "Web Design",
+          "package": "basic"
+        },
+        "totalPrice": 200,
+        "status": "pending"
+      }
+    ]
+  }
