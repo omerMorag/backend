@@ -31,6 +31,8 @@ const userRoutes = require('./api/user/user.routes');
 const gigRoutes = require('./api/gig/gig.routes');
 
 app.use('/api/gig', gigRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/auth', authRoutes);
 
 const logger = require('./services/logger.service.js')
 const port = process.env.PORT || 3030
