@@ -29,6 +29,8 @@ if (process.env.NODE_ENV === 'production') {
 const authRoutes = require('./api/auth/auth.routes');
 const userRoutes = require('./api/user/user.routes');
 const gigRoutes = require('./api/gig/gig.routes');
+const {connectSockets} = require('./services/socket.service')
+
 
 app.use('/api/gig', gigRoutes);
 
