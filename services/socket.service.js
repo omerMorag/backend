@@ -1,4 +1,4 @@
-// const asyncLocalStorage = require('./als.service');
+const asyncLocalStorage = require('./als.service');
 const logger = require('./logger.service');
 
 var gIo = null
@@ -29,22 +29,6 @@ function connectSockets(http, session) {
             // emits only to sockets in the same room
             gIo.to(socket.myTopic).emit('chat addMsg', msg)
         })
-        socket.on('iAmTyping', user => {
-            console.log('Got iAmTyping', user);
-            // emits to all sockets:
-            // gIo.emit('chat addMsg', msg)
-            // emits only to sockets in the same room
-            // gIo.to(socket.myTopic).emit('chat addMsg', msg)
-            socket.broadcast.to(socket.myTopic).emit('userIsTyping', user)
-        })
-        socket.on('iStoppedTyping', user => {
-            console.log('Got iStoppedTyping');
-            // emits to all sockets:
-            // gIo.emit('chat addMsg', msg)
-            // emits only to sockets in the same room
-            // gIo.to(socket.myTopic).emit('chat addMsg', msg)
-            socket.broadcast.to(socket.myTopic).emit('userStoppedTyping')
-        })
         socket.on('user-watch', userId => {
             socket.join('watching:' + userId)
         })
@@ -55,9 +39,6 @@ function connectSockets(http, session) {
         socket.on('unset-user-socket', () => {
             delete socket.userId
         })
-        socket.on('admin-updated-store', msg => {
-            gIo.emit('store-updated', msg)
-        })
 
     })
 }
@@ -66,7 +47,7 @@ function emitTo({ type, data, label }) {
     if (label) gIo.to('watching:' + label).emit(type, data)
     else gIo.emit(type, data)
 }
-
+// use for private messages
 async function emitToUser({ type, data, userId }) {
     logger.debug('Emiting to user socket: ' + userId)
     const socket = await _getUserSocket(userId)
