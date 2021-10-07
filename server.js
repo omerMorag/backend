@@ -29,10 +29,12 @@ if (process.env.NODE_ENV === 'production') {
 const authRoutes = require('./api/auth/auth.routes');
 const userRoutes = require('./api/user/user.routes');
 const gigRoutes = require('./api/gig/gig.routes');
+const orederRoutes = require('./api/order/order.routes');
 
 app.use('/api/gig', gigRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/order', orederRoutes);
 
 const logger = require('./services/logger.service.js')
 const port = process.env.PORT || 3030
