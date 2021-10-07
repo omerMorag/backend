@@ -19,7 +19,6 @@ async function getById(gigId) {
     try {
         const collection = await dbService.getCollection('gig')
         const gig =  await collection.findOne({ '_id': ObjectId(gigId) })
-        console.log(gig);
         return gig
     } catch (err) {
         logger.error(`while finding gig ${gigId}`, err)
