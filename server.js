@@ -29,12 +29,18 @@ if (process.env.NODE_ENV === 'production') {
 const authRoutes = require('./api/auth/auth.routes');
 const userRoutes = require('./api/user/user.routes');
 const gigRoutes = require('./api/gig/gig.routes');
-const orederRoutes = require('./api/order/order.routes');
+const orderRoutes = require('./api/order/order.routes')
+const { connectSockets } = require('./services/socket.service')
 
+// app.get('/**', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'public', 'index.html'))
+// })
+
+app.use('/api/auth', authRoutes)
+app.use('/api/user', userRoutes)
+app.use('/api/order', orderRoutes)
 app.use('/api/gig', gigRoutes);
-app.use('/api/user', userRoutes);
-app.use('/api/auth', authRoutes);
-app.use('/api/order', orederRoutes);
+connectSockets(http, session)
 
 const logger = require('./services/logger.service.js')
 const port = process.env.PORT || 3030

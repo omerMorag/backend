@@ -39,14 +39,25 @@ async function remove(gigId) {
 
 async function add(order) {
     try {
+        // peek only updatable fields!
+        const orderToAdd = {
+            buyer: order.buyer,
+            dueOn: new Date().getFullYear()+'-'+String(new Date().getMonth()+1).padStart(2,0)+'-'+String(new Date().getDate()).padStart(2,0),
+            gigId: order.gigId,
+            packName: order.packName,
+            price: order.price,
+            sellerId: order.sellerId,
+            status: "pending",
+        }
         const collection = await dbService.getCollection('order')
-        const addedOrder = await collection.insertOne(order)
-        return addedOrder
+        await collection.insertOne(orderToAdd)
+        return orderToAdd;
     } catch (err) {
-        logger.error('cannot insert gig', err)
+        logger.error('cannot insert order', err)
         throw err
     }
 }
+
 async function update(gig) {
     try {
         var id = ObjectId(gig._id)
