@@ -18,6 +18,7 @@ async function getGigs(req, res) {
 async function getGigById(req, res) {
   try {
     const gigId = req.params.id;
+    console.log('gigId:',gigId);
     const gig = await gigService.getById(gigId)
     res.json(gig)
   } catch (err) {
