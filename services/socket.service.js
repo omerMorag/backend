@@ -1,8 +1,13 @@
 const asyncLocalStorage = require('./als.service');
 const logger = require('./logger.service');
 
-
 var gIo = null
+
+async function getOrders() {
+    const db = require('./db.service')
+    const orders = await db.getCollection('order')
+    console.log('orders: ', orders);
+}
 
 function connectSockets(http, session) {
     gIo = require('socket.io')(http, {
@@ -14,23 +19,8 @@ function connectSockets(http, session) {
         console.log('New socket', socket.id)
         socket.on('disconnect', socket => {
         })
-        socket.on('chat topic', topic => {
-            if (socket.myTopic === topic) return;
-            if (socket.myTopic) {
-                socket.leave(socket.myTopic)
-            }
-            socket.join(topic)
-            socket.myTopic = topic
-        })
-        socket.on('chat newMsg', msg => {
-            console.log('Emitting Chat msg', msg);
-            // emits to all sockets:
-            // gIo.emit('chat addMsg', msg)
-            // emits only to sockets in the same room
-            gIo.to(socket.myTopic).emit('chat addMsg', msg)
-        })
-        socket.on('user-watch', userId => {
-            socket.join('watching:' + userId)
+        socket.on('SOCKET_EVENT_ORDER_ADDED', addedOrder => {
+                console.log('addedOrder in backend!!: ', addedOrder);
         })
         socket.on('set-user-socket', userId => {
             logger.debug(`Setting (${socket.id}) socket.userId = ${userId}`)
@@ -39,7 +29,6 @@ function connectSockets(http, session) {
         socket.on('unset-user-socket', () => {
             delete socket.userId
         })
-        socket.on('got order', ()=>console.log('orders: ',orders) )
 
     })
 }
@@ -59,23 +48,6 @@ async function emitToUser({ type, data, userId }) {
     }
 }
 
-// Send to all sockets BUT not the current socket 
-async function broadcast({ type, data, room = null, userId }) {
-    ('BROADCASTING', JSON.stringify(arguments));
-    const excludedSocket = await _getUserSocket(userId)
-    if (!excludedSocket) {
-        logger.debug('Shouldnt happen, socket not found')
-        _printSockets();
-        return;
-    }
-    logger.debug('broadcast to all but user: ', userId)
-    if (room) {
-        excludedSocket.broadcast.to(room).emit(type, data)
-    } else {
-        excludedSocket.broadcast.emit(type, data)
-    }
-}
-
 async function _getUserSocket(userId) {
     const sockets = await _getAllSockets();
     const socket = sockets.find(s => s.userId == userId)
@@ -86,26 +58,11 @@ async function _getAllSockets() {
     const sockets = await gIo.fetchSockets();
     return sockets;
 }
-// function _getAllSockets() {
-//     const socketIds = Object.keys(gIo.sockets.sockets)
-//     const sockets = socketIds.map(socketId => gIo.sockets.sockets[socketId])
-//     return sockets;
-// // }
-
-// async function _printSockets() {
-//     const sockets = await _getAllSockets()
-//     console.log(`Sockets: (count: ${sockets.length}):`)
-//     sockets.forEach(_printSocket)
-// }
-// function _printSocket(socket) {
-//     console.log(`Socket - socketId: ${socket.id} userId: ${socket.userId}`)
-// }
 
 module.exports = {
     connectSockets,
     emitTo,
     emitToUser,
-    broadcast,
 }
 
 
