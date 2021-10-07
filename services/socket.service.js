@@ -1,6 +1,7 @@
 const asyncLocalStorage = require('./als.service');
 const logger = require('./logger.service');
 
+
 var gIo = null
 
 function connectSockets(http, session) {
@@ -39,6 +40,7 @@ function connectSockets(http, session) {
         socket.on('unset-user-socket', () => {
             delete socket.userId
         })
+        socket.on('got order', ()=>console.log('orders: ',orders) )
 
     })
 }
@@ -89,16 +91,16 @@ async function _getAllSockets() {
 //     const socketIds = Object.keys(gIo.sockets.sockets)
 //     const sockets = socketIds.map(socketId => gIo.sockets.sockets[socketId])
 //     return sockets;
-// }
+// // }
 
-async function _printSockets() {
-    const sockets = await _getAllSockets()
-    console.log(`Sockets: (count: ${sockets.length}):`)
-    sockets.forEach(_printSocket)
-}
-function _printSocket(socket) {
-    console.log(`Socket - socketId: ${socket.id} userId: ${socket.userId}`)
-}
+// async function _printSockets() {
+//     const sockets = await _getAllSockets()
+//     console.log(`Sockets: (count: ${sockets.length}):`)
+//     sockets.forEach(_printSocket)
+// }
+// function _printSocket(socket) {
+//     console.log(`Socket - socketId: ${socket.id} userId: ${socket.userId}`)
+// }
 
 module.exports = {
     connectSockets,

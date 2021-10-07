@@ -4,40 +4,12 @@ const asyncLocalStorage = require('../../services/als.service')
 
 async function query(filterBy = {}) {
     try {
-        const criteria = _buildCriteria(filterBy)
+        // const criteria = _buildCriteria(filterBy)
         const collection = await dbService.getCollection('order')
         // const orders = await collection.find(criteria).toArray()
-        var orders = await collection.aggregate([
-            {
-                $match: criteria
-            },
-            {
-                $lookup:
-                {
-                    localField: 'byUserId',
-                    from: 'user',
-                    foreignField: '_id',
-                    as: 'byUser'
-                }
-            },
-            {
-                $unwind: '$byUser'
-            },
-            {
-                $lookup:
-                {
-                    localField: 'aboutUserId',
-                    from: 'user',
-                    foreignField: '_id',
-                    as: 'aboutUser'
-                }
-            },
-            {
-                $unwind: '$aboutUser'
-            }
-        ]).toArray()
+       
         orders = orders.map(order => {
-            order.byUser = { _id: order.byUser._id, fullname: order.byUser.fullname }
+            order.sellerId = { _id: order.byUser._id, fullname: order.byUser.fullname }
             order.aboutUser = { _id: order.aboutUser._id, fullname: order.aboutUser.fullname }
             delete order.byUserId
             delete order.aboutUserId
