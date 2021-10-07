@@ -6,12 +6,11 @@ async function query(filterBy) {
     try {
         // const criteria = _buildCriteria(filterBy)
         const criteria = {}
-        const collection = await dbService.getCollection('gig')
-        var gigs = await collection.find(criteria).toArray()
-        console.log('gigs',gigs);
-        return gigs
+        const collection = await dbService.getCollection('order')
+        var orders = await collection.find(criteria).toArray()
+        return orders
     } catch (err) {
-        logger.error('cannot find gigs', err)
+        logger.error('cannot find orders', err)
         throw err
     }
 }
@@ -39,11 +38,11 @@ async function remove(gigId) {
     }
 }
 
-async function add(gig) {
+async function add(order) {
     try {
-        const collection = await dbService.getCollection('gig')
-        const addedGig = await collection.insertOne(gig)
-        return addedGig
+        const collection = await dbService.getCollection('order')
+        const addedOrder = await collection.insertOne(order)
+        return addedOrder
     } catch (err) {
         logger.error('cannot insert gig', err)
         throw err

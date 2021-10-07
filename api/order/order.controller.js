@@ -6,8 +6,8 @@ async function getOrders(req, res) {
   try {
     var queryParams = req.query;
     console.log(queryParams);
-    const gigs = await orederService.query(queryParams)
-    res.json(gigs);
+    const orders = await orederService.query(queryParams)
+    res.json(orders);
   } catch (err) {
     logger.error('Failed to get orders', err)
     res.status(500).send({ err: 'Failed to get orders' })
@@ -26,7 +26,7 @@ async function getOrderById(req, res) {
   }
 }
 
-// POST (add car)
+// POST 
 async function addOrder(req, res) {
   try {
     const order = req.body;
