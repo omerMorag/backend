@@ -27,25 +27,25 @@ async function deleteOrder(req, res) {
 async function addOrder(req, res) {
     try {
         var order = req.body
-        order.byUserId = req.session.user._id
-        order = await orderService.add(order)
+        //order.byUserId = req.session.user._id
+        const orderToReturn = await orderService.add(order)
         
         // prepare the updated order for sending out
-        order.aboutUser = await userService.getById(order.aboutUserId)
+        // order.aboutUser = await userService.getById(order.aboutUserId)
         
         // Give the user credit for adding a order
-        var user = await userService.getById(order.byUserId)
-        user.score += 10;
-        user = await userService.update(user)
-        order.byUser = user
-        const fullUser = await userService.getById(user._id)
+        // var user = await userService.getById(order.byUserId)
+        // user.score += 10;
+        // user = await userService.update(user)
+        // order.byUser = user
+        // const fullUser = await userService.getById(user._id)
 
         console.log('CTRL SessionId:', req.sessionID);
-        socketService.broadcast({type: 'order-added', data: order, userId: order.byUserId})
-        socketService.emitToUser({type: 'order-about-you', data: order, userId: order.aboutUserId})
-        socketService.emitTo({type: 'user-updated', data: fullUser, label: fullUser._id})
+        // socketService.broadcast({type: 'order-added', data: order, userId: order.byUserId})
+        // socketService.emitToUser({type: 'order-about-you', data: order, userId: order.aboutUserId})
+        // socketService.emitTo({type: 'user-updated', data: fullUser, label: fullUser._id})
 
-        res.send(order)
+        res.send(orderToReturn)
 
     } catch (err) {
         console.log(err)
