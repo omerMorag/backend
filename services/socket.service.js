@@ -13,7 +13,6 @@ function connectSockets(http, session) {
     gIo.on('connection', socket => {
         console.log('New socket', socket.id)
         socket.on('disconnect', socket => {
-            console.log('Someone disconnected')
         })
         socket.on('chat topic', topic => {
             if (socket.myTopic === topic) return;
@@ -62,7 +61,7 @@ async function emitToUser({ type, data, userId }) {
 
 // Send to all sockets BUT not the current socket 
 async function broadcast({ type, data, room = null, userId }) {
-    console.log('BROADCASTING', JSON.stringify(arguments));
+    ('BROADCASTING', JSON.stringify(arguments));
     const excludedSocket = await _getUserSocket(userId)
     if (!excludedSocket) {
         logger.debug('Shouldnt happen, socket not found')

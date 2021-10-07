@@ -1,44 +1,41 @@
 const dbService = require('../../services/db.service')
+cconst logger = require('../../services/logger.service')
 const ObjectId = require('mongodb').ObjectId
-const asyncLocalStorage = require('../../services/als.service')
 
-async function query(filterBy = {}) {
+async function query(filterBy) {
     try {
-        // const criteria = _buildCriteria(filterBy)
+        // const criteria = _buildCriteria(filterBy)         const criteria = {}
         const collection = await dbService.getCollection('order')
-        // const orders = await collection.find(criteria).toArray()
-       
-        orders = orders.map(order => {
-            order.sellerId = { _id: order.byUser._id, fullname: order.byUser.fullname }
-            order.aboutUser = { _id: order.aboutUser._id, fullname: order.aboutUser.fullname }
-            delete order.byUserId
-            delete order.aboutUserId
-            return order
-        })
+        var orders = await collection.find(criteria).toArray()
 
         return orders
     } catch (err) {
         logger.error('cannot find orders', err)
         throw err
     }
-
 }
 
-async function remove(orderId) {
+async function getById(gigId) {
     try {
-        const store = asyncLocalStorage.getStore()
-        const { userId, isAdmin } = store
-        const collection = await dbService.getCollection('order')
-        // remove only if user is owner/admin
-        const criteria = { _id: ObjectId(orderId) }
-        if (!isAdmin) criteria.byUserId = ObjectId(userId)
-        await collection.deleteOne(criteria)
+        const collection = await dbService.getCollection('gig')
+        const gig =  await collection.findOne({ '_id': ObjectId(gigId) })
+        return gig
     } catch (err) {
-        logger.error(`cannot remove order ${orderId}`, err)
+        logger.error(`while finding gig ${gigId}`, err)
         throw err
     }
 }
 
+async function remove(gigId) {
+    try {
+        const collection = await dbService.getCollection('gig')
+        await collection.deleteOne({ '_id': ObjectId(gigId) })
+        return gigId
+    } catch (err) {
+        logger.error(`cannot remove car ${gigId}`, err)
+        throw err
+    }
+}
 
 async function add(order) {
     try {
@@ -61,15 +58,23 @@ async function add(order) {
     }
 }
 
-function _buildCriteria(filterBy) {
-    const criteria = {}
-    return criteria
+async function update(gig) {
+    try {
+        var id = ObjectId(gig._id)
+        delete gig._id
+        const collection = await dbService.getCollection('gig')
+        await collection.updateOne({ "_id": id }, { $set: { ...gig } })
+        return gig
+    } catch (err) {
+        logger.error(`cannot update car ${gigId}`, err)
+        throw err
+    }
 }
 
 module.exports = {
-    query,
     remove,
-    add
+    query,
+    getById,
+    add,
+    update,
 }
-
-

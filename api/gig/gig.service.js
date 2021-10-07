@@ -8,7 +8,6 @@ async function query(filterBy) {
         const criteria = {}
         const collection = await dbService.getCollection('gig')
         var gigs = await collection.find(criteria).toArray()
-        console.log('gigs',gigs);
         return gigs
     } catch (err) {
         logger.error('cannot find gigs', err)
@@ -19,8 +18,7 @@ async function query(filterBy) {
 async function getById(gigId) {
     try {
         const collection = await dbService.getCollection('gig')
-        const gig =  await collection.findOne({ '_id': ObjectId(gigId) })
-        console.log(gig);
+        const gig = await collection.findOne({ '_id': ObjectId(gigId) })
         return gig
     } catch (err) {
         logger.error(`while finding gig ${gigId}`, err)
