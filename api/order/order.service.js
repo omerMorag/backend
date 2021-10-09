@@ -4,10 +4,11 @@ const ObjectId = require('mongodb').ObjectId
 
 async function query(filterBy) {
     try {
-        // const criteria = _buildCriteria(filterBy)
+        // const criteria = _buildCriteria(filterBy)       
         const criteria = {}
         const collection = await dbService.getCollection('order')
         var orders = await collection.find(criteria).toArray()
+
         return orders
     } catch (err) {
         logger.error('cannot find orders', err)
