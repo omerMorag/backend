@@ -4,8 +4,7 @@ const logger = require('../../services/logger.service')
 // GET LIST
 async function getGigs(req, res) {
   try {
-    var queryParams = req.query;
-    const gigs = await gigService.query(queryParams)
+    const gigs = await gigService.query()
     res.json(gigs);
   } catch (err) {
     logger.error('Failed to get gigs', err)
@@ -17,7 +16,7 @@ async function getGigs(req, res) {
 async function getGigById(req, res) {
   try {
     const gigId = req.params.id;
-    const gig = await gigService.getById(gigId)
+    const gig = await gigService.getById(gigId);
     res.json(gig)
   } catch (err) {
     logger.error('Failed to get gig', err)

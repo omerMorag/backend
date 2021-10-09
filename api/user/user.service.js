@@ -65,15 +65,11 @@ async function remove(userId) {
 
 async function update(user) {
     try {
-        // peek only updatable fields!
-        const userToSave = {
-            _id: ObjectId(user._id),
-            username: user.username,
-            fullname: user.fullname,
-        }
-        const collection = await dbService.getCollection('user')
-        await collection.updateOne({ '_id': userToSave._id }, { $set: userToSave })
-        return userToSave;
+        let id= ObjectId(user._id);
+        delete user._id;
+        let collection = await dbService.getCollection('user')
+        await collection.updateOne({ '_id': id }, { $set: {...user} })
+        return user;
     } catch (err) {
         logger.error(`cannot update user ${user._id}`, err)
         throw err
@@ -87,7 +83,6 @@ async function add(user) {
             username: user.username,
             password: user.password,
             fullname: user.fullname,
-            score: user.score || 0
         }
         const collection = await dbService.getCollection('user')
         await collection.insertOne(userToAdd)
@@ -98,23 +93,6 @@ async function add(user) {
     }
 }
 
-function _buildCriteria(filterBy) {
-    const criteria = {}
-    if (filterBy.txt) {
-        const txtCriteria = { $regex: filterBy.txt, $options: 'i' }
-        criteria.$or = [
-            {
-                username: txtCriteria
-            },
-            {
-                fullname: txtCriteria
-            }
-        ]
-    }
-    if (filterBy.minBalance) {
-        criteria.balance = { $gte: filterBy.minBalance }
-    }
-    return criteria
-}
+
 
 

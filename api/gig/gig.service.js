@@ -2,23 +2,24 @@ const dbService = require('../../services/db.service')
 const logger = require('../../services/logger.service')
 const ObjectId = require('mongodb').ObjectId
 
-async function query(filterBy) {
-    try {
-        // const criteria = _buildCriteria(filterBy)
-        const criteria = {}
-        const collection = await dbService.getCollection('gig')
-        var gigs = await collection.find(criteria).toArray()
-        return gigs
-    } catch (err) {
-        logger.error('cannot find gigs', err)
-        throw err
+    async function query(gilterBy={}) {
+        try {
+            const collection = await dbService.getCollection('gig')
+            var gigs = await collection.find(gilterBy).toArray()
+            return gigs
+        } catch (err) {
+            logger.error('cannot find gigs', err)
+            throw err
+        }
     }
-}
+
+
 
 async function getById(gigId) {
     try {
         const collection = await dbService.getCollection('gig')
         const gig = await collection.findOne({ '_id': ObjectId(gigId) })
+        console.log(gig);
         return gig
     } catch (err) {
         logger.error(`while finding gig ${gigId}`, err)

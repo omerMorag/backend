@@ -61,19 +61,18 @@ async function add(order) {
     }
 }
 
-async function update(gig) {
+async function update(order) {
     try {
-        var id = ObjectId(gig._id)
-        delete gig._id
-        const collection = await dbService.getCollection('gig')
-        await collection.updateOne({ "_id": id }, { $set: { ...gig } })
-        return gig
+        let id= ObjectId(order._id);
+        delete order._id;
+        let collection = await dbService.getCollection('order')
+        await collection.updateOne({ '_id': id }, { $set: {...order} })
+        return order;
     } catch (err) {
-        logger.error(`cannot update car ${gigId}`, err)
+        logger.error(`cannot update user ${user._id}`, err)
         throw err
     }
 }
-
 module.exports = {
     remove,
     query,
