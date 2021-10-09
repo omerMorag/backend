@@ -49,9 +49,21 @@ async function removeOrder(req, res) {
   }
 }
 
+async function updateOrder(req, res) {
+  try {
+      const order = req.body
+      const savedOrder = await userService.update(order)
+      res.send(savedOrder)
+  } catch (err) {
+      logger.error('Failed to update user', err)
+      res.status(500).send({ err: 'Failed to update user' })
+  }
+}
+
 module.exports = {
   getOrders,
   getOrderById,
   addOrder,
- removeOrder
+ removeOrder,
+ updateOrder
 }
