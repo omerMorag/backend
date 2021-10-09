@@ -40,9 +40,11 @@ async function remove(gigId) {
 
 async function add(order) {
     try {
+        console.log('order-service backend - add:', order);
         // peek only updatable fields!
         const orderToAdd = {
             buyer: order.buyer,
+            buyerId: order.buyerId,
             dueOn: new Date().getFullYear()+'-'+String(new Date().getMonth()+1).padStart(2,0)+'-'+String(new Date().getDate()).padStart(2,0),
             gigId: order.gigId,
             packName: order.packName,

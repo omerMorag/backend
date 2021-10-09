@@ -1,5 +1,6 @@
 const orederService = require('./order.service.js');
-const logger = require('../../services/logger.service')
+const logger = require('../../services/logger.service');
+const socketService = require('../../services/socket.service');
 
 // GET LIST
 async function getOrders(req, res) {
@@ -29,7 +30,10 @@ async function getOrderById(req, res) {
 async function addOrder(req, res) {
   try {
     const order = req.body;
+
     const addedOrder = await orederService.add(order)
+    console.log('adding order to DB', order);
+    socketService.newOrderAdded(addedOrder)
     res.json(addedOrder)
   } catch (err) {
     logger.error('Failed to add order', err)

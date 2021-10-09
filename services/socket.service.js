@@ -1,13 +1,8 @@
+const SOCKET_EVENT_ORDER_ADDED = 'order-added';
 const asyncLocalStorage = require('./als.service');
 const logger = require('./logger.service');
 
 var gIo = null
-
-async function getOrders() {
-    const db = require('./db.service')
-    const orders = await db.getCollection('order')
-    console.log('orders: ', orders);
-}
 
 function connectSockets(http, session) {
     gIo = require('socket.io')(http, {
@@ -19,11 +14,12 @@ function connectSockets(http, session) {
         console.log('New socket', socket.id)
         socket.on('disconnect', socket => {
         })
-        socket.on('SOCKET_EVENT_ORDER_ADDED', addedOrder => {
-                console.log('addedOrder in backend!!: ', addedOrder);
+        socket.on(SOCKET_EVENT_ORDER_ADDED, addedOrder => {
+                emitToUser('new order', addedOrder, addedOrder.sellerId)
         })
         socket.on('set-user-socket', userId => {
             logger.debug(`Setting (${socket.id}) socket.userId = ${userId}`)
+            console.log(`Setting (${socket.id}) socket.userId = ${userId}`);
             socket.userId = userId
         })
         socket.on('unset-user-socket', () => {
@@ -33,29 +29,40 @@ function connectSockets(http, session) {
     })
 }
 
+function newOrderAdded(addedOrder){
+    console.log('newOrderAdded:', addedOrder);
+    // emitToUser('new order', 'hey', addedOrder.sellerId)
+    emitToUser('new order', {type: 'toSeller', order: addedOrder, txt:`New order from: ${addedOrder.buyer}`}, addedOrder.sellerId)
+    // emitToUser('new order', {type: 'toBuyer', order: addedOrder, txt: 'your order has been accpeted'}, addedOrder.buyerId)
+}
+
 function emitTo({ type, data, label }) {
     if (label) gIo.to('watching:' + label).emit(type, data)
     else gIo.emit(type, data)
 }
 // use for private messages
-async function emitToUser({ type, data, userId }) {
+async function emitToUser( type, data, userId ) {
     logger.debug('Emiting to user socket: ' + userId)
+    console.log('Emiting to user socket: ',  userId);
     const socket = await _getUserSocket(userId)
+    // console.log('socket: ',socket);
     if (socket) socket.emit(type, data)
     else {
         console.log('User socket not found');
-        _printSockets();
     }
 }
 
 async function _getUserSocket(userId) {
+    // console.log('userId: ',userId);
     const sockets = await _getAllSockets();
     const socket = sockets.find(s => s.userId == userId)
+    // console.log('user socket: ',socket);
     return socket;
 }
 async function _getAllSockets() {
     // return all Socket instances
     const sockets = await gIo.fetchSockets();
+    // console.log('All sockets:', sockets );
     return sockets;
 }
 
@@ -63,6 +70,7 @@ module.exports = {
     connectSockets,
     emitTo,
     emitToUser,
+    newOrderAdded
 }
 
 
