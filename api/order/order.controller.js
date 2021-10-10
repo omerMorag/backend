@@ -1,4 +1,4 @@
-const orederService = require('./order.service.js');
+const orderService = require('./order.service.js');
 const logger = require('../../services/logger.service');
 const socketService = require('../../services/socket.service');
 
@@ -6,7 +6,7 @@ const socketService = require('../../services/socket.service');
 async function getOrders(req, res) {
   try {
     var queryParams = req.query;
-    const orders = await orederService.query(queryParams)
+    const orders = await orderService.query(queryParams)
     res.json(orders);
   } catch (err) {
     logger.error('Failed to get orders', err)
@@ -18,7 +18,7 @@ async function getOrders(req, res) {
 async function getOrderById(req, res) {
   try {
     const orderId = req.params.id;
-    const order = await orederService.getById(orderId)
+    const order = await orderService.getById(orderId)
     res.json(order)
   } catch (err) {
     logger.error('Failed to get order', err)
@@ -31,7 +31,7 @@ async function addOrder(req, res) {
   try {
     const order = req.body;
 
-    const addedOrder = await orederService.add(order)
+    const addedOrder = await orderService.add(order)
     console.log('adding order to DB', order);
     socketService.newOrderAdded(addedOrder)
     res.json(addedOrder)
@@ -45,7 +45,7 @@ async function addOrder(req, res) {
 async function removeOrder(req, res) {
   try {
     const orderId = req.params.id;
-    const removedId = await orederService.remove(orderId)
+    const removedId = await orderService.remove(orderId)
     res.send(removedId)
   } catch (err) {
     logger.error('Failed to remove order', err)
@@ -55,8 +55,9 @@ async function removeOrder(req, res) {
 
 async function updateOrder(req, res) {
   try {
+    console.log('from order controller');
       const order = req.body
-      const savedOrder = await userService.update(order)
+      const savedOrder = await orderService.update(order)
       res.send(savedOrder)
   } catch (err) {
       logger.error('Failed to update user', err)

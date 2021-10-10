@@ -53,7 +53,6 @@ async function emitToUser( type, data, userId ) {
 }
 
 async function _getUserSocket(userId) {
-    // console.log('userId: ',userId);
     const sockets = await _getAllSockets();
     const socket = sockets.find(s => s.userId == userId)
     // console.log('user socket: ',socket);
