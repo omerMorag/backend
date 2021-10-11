@@ -11,7 +11,6 @@ function connectSockets(http, session) {
         }
     })
     gIo.on('connection', socket => {
-        console.log('New socket', socket.id)
         socket.on('disconnect', socket => {
         })
         socket.on(SOCKET_EVENT_ORDER_ADDED, addedOrder => {
@@ -40,12 +39,12 @@ function emitTo({ type, data, label }) {
 // use for private messages
 async function emitToUser( type, data, userId ) {
     logger.debug('Emiting to user socket: ' + userId)
-    console.log('Emiting to user socket: ',  userId);
+    //console.log('Emiting to user socket: ',  userId);
     const socket = await _getUserSocket(userId)
     // console.log('socket: ',socket);
     if (socket) socket.emit(type, data)
     else {
-        console.log('User socket not found');
+//console.log('User socket not found');
     }
 }
 

@@ -30,7 +30,7 @@ async function getOrderById(req, res) {
 async function addOrder(req, res) {
   try {
     const order = req.body;
-    const addedOrder = await orederService.add(order)
+    const addedOrder = await orderService.add(order)
     socketService.newOrderAdded(addedOrder)
     res.json(addedOrder)
   } catch (err) {
@@ -53,7 +53,6 @@ async function removeOrder(req, res) {
 
 async function updateOrder(req, res) {
   try {
-    console.log('from order controller');
       const order = req.body
       const savedOrder = await orderService.update(order)
       res.send(savedOrder)
