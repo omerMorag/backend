@@ -30,9 +30,7 @@ async function getOrderById(req, res) {
 async function addOrder(req, res) {
   try {
     const order = req.body;
-
-    const addedOrder = await orderService.add(order)
-    console.log('adding order to DB', order);
+    const addedOrder = await orederService.add(order)
     socketService.newOrderAdded(addedOrder)
     res.json(addedOrder)
   } catch (err) {
