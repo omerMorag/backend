@@ -30,9 +30,7 @@ async function getOrderById(req, res) {
 async function addOrder(req, res) {
   try {
     const order = req.body;
-
     const addedOrder = await orederService.add(order)
-    console.log('adding order to DB', order);
     socketService.newOrderAdded(addedOrder)
     res.json(addedOrder)
   } catch (err) {
@@ -56,7 +54,7 @@ async function removeOrder(req, res) {
 async function updateOrder(req, res) {
   try {
       const order = req.body
-      const savedOrder = await userService.update(order)
+      const savedOrder = await orederService.update(order)
       res.send(savedOrder)
   } catch (err) {
       logger.error('Failed to update user', err)

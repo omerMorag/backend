@@ -2,14 +2,13 @@ const dbService = require('../../services/db.service')
 const logger = require('../../services/logger.service')
 const ObjectId = require('mongodb').ObjectId
 
-async function query(filterBy) {
+async function query() {
     try {
-        // const criteria = _buildCriteria(filterBy)       
         const criteria = {}
         const collection = await dbService.getCollection('order')
         var orders = await collection.find(criteria).toArray()
 
-        return orders
+        return orders.reverse()
     } catch (err) {
         logger.error('cannot find orders', err)
         throw err
@@ -40,12 +39,11 @@ async function remove(gigId) {
 
 async function add(order) {
     try {
-        console.log('order-service backend - add:', order);
-        // peek only updatable fields!
         const orderToAdd = {
+            gigName: order.gigName,
             buyer: order.buyer,
             buyerId: order.buyerId,
-            dueOn: new Date().getFullYear()+'-'+String(new Date().getMonth()+1).padStart(2,0)+'-'+String(new Date().getDate()).padStart(2,0),
+            dueOn: String(new Date().getDate()).padStart(2,0)+'-'+String(new Date().getMonth()+1).padStart(2,0)+'-'+new Date().getFullYear(),
             gigId: order.gigId,
             packName: order.packName,
             price: order.price,
