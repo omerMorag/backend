@@ -14,7 +14,6 @@ async function getUser(req, res) {
 
 async function getUsers(req, res) {
     try {
-        console.log('back');
         const users = await userService.query()
         res.send(users)
     } catch (err) {

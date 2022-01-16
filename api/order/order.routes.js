@@ -1,16 +1,26 @@
-const express = require('express')
-const {requireAuth, requireAdmin} = require('../../middlewares/requireAuth.middleware')
-const {log} = require('../../middlewares/logger.middleware')
-const {addOrder, getOrders, updateOrder,getOrderById,removeOrder} = require('./Order.controller')
-const router = express.Router()
+const express = require("express");
+const {
+  requireAuth,
+  requireAdmin,
+} = require("../../middlewares/requireAuth.middleware");
+const { log } = require("../../middlewares/logger.middleware");
+const {
+  addOrder,
+  getOrders,
+  deleteOrder,
+  getOrderById,
+  removeOrder,
+  updateOrder,
+} = require("./order.controller");
+const router = express.Router();
 
 // middleware that is specific to this router
 // router.use(requireAuth)
 
-router.get('/', getOrders)
-router.get('/:id', getOrderById)
-router.post('/', addOrder)
-router.put('/:id', updateOrder)
-router.delete('/:id', removeOrder)
+router.get("/", getOrders);
+router.get("/:id", getOrderById);
+router.post("/", addOrder);
+router.put("/:id", updateOrder);
+router.delete("/:id", removeOrder);
 
-module.exports = router
+module.exports = router;
