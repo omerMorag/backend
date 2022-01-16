@@ -15,6 +15,18 @@ async function login(username, password) {
     return user
 }
 
+async function logout(username, password) {
+    // logger.debug(`auth.service - logout with username: ${username}`)
+    console.log('auth.service - logout');
+    // const user = await userService.remove(username)
+    // if (!user) return Promise.reject('Invalid username or password')
+    // TODO: un-comment for real login
+    // const match = await bcrypt.compare(password, user.password)
+    // if (!match) return Promise.reject('Invalid username or password')
+    // delete user.password
+    // return user
+}
+
 async function signup(username, password, fullname) {
     const saltRounds = 10
 
@@ -28,4 +40,5 @@ async function signup(username, password, fullname) {
 module.exports = {
     signup,
     login,
+    logout
 }

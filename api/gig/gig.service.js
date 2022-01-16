@@ -2,10 +2,10 @@ const dbService = require('../../services/db.service')
 const logger = require('../../services/logger.service')
 const ObjectId = require('mongodb').ObjectId
 
-    async function query(gilterBy={}) {
+    async function query(filterBy={}) {
         try {
             const collection = await dbService.getCollection('gig')
-            var gigs = await collection.find(gilterBy).toArray()
+            var gigs = await collection.find(filterBy).toArray()
             return gigs
         } catch (err) {
             logger.error('cannot find gigs', err)

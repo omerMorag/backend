@@ -31,6 +31,7 @@ async function addOrder(req, res) {
   try {
     const order = req.body;
     const addedOrder = await orederService.add(order)
+    console.log('addedOrder: ',addedOrder);
     socketService.newOrderAdded(addedOrder)
     res.json(addedOrder)
   } catch (err) {
@@ -39,7 +40,7 @@ async function addOrder(req, res) {
   }
 }
 
-// DELETE (Remove car)
+// DELETE (Remove order)
 async function removeOrder(req, res) {
   try {
     const orderId = req.params.id;

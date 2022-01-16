@@ -3,6 +3,7 @@ const logger = require('../../services/logger.service')
 
 async function getUser(req, res) {
     try {
+        console.log('user.controller');
         const user = await userService.getById(req.params.id)
         res.send(user)
     } catch (err) {
@@ -13,7 +14,7 @@ async function getUser(req, res) {
 
 async function getUsers(req, res) {
     try {
-       
+        console.log('back');
         const users = await userService.query()
         res.send(users)
     } catch (err) {
@@ -34,6 +35,7 @@ async function deleteUser(req, res) {
 
 async function updateUser(req, res) {
     try {
+        console.log('update user');
         const user = req.body
         const savedUser = await userService.update(user)
         res.send(savedUser)

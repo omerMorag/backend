@@ -30,6 +30,7 @@ function connectSockets(http, session) {
 }
 
 function newOrderAdded(addedOrder){
+    console.log('addedOrder: ',addedOrder);
     emitToUser('new order', {type: 'toSeller', order: addedOrder, txt:`New order from: ${addedOrder.buyer}`}, addedOrder.sellerId)
 }
 
